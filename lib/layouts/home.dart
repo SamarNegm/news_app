@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/Logic/App/AppCubit.dart';
 import 'package:news_app/Logic/Home/HomeCubit.dart';
 import 'package:news_app/Logic/Home/HomeState.dart';
 
@@ -21,6 +22,14 @@ class Home extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 title: Text('News App'),
+                actions: [
+                  IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                  IconButton(
+                      onPressed: () {
+                        AppCubit.get(context).changeAppMode();
+                      },
+                      icon: Icon(Icons.brightness_4_outlined))
+                ],
               ),
               body: cubit.pages[cubit.selectedPageIndex],
               key: scaffoldKey,
@@ -38,8 +47,6 @@ class Home extends StatelessWidget {
                       icon: Icon(Icons.science), label: 'Science'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.business), label: 'Business'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.settings), label: 'Settings'),
                 ],
               ));
         },
