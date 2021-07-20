@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/Data/Remote/DioHelper.dart';
+import 'package:news_app/Data/local/cachHelper.dart';
 import 'package:news_app/Logic/App/App%20State.dart';
 import 'package:news_app/Logic/App/AppCubit.dart';
 import 'package:news_app/layouts/home.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
+  await cacheHelper.init();
   runApp(MyApp());
 }
 
