@@ -13,18 +13,7 @@ class Sports extends StatelessWidget {
       listener: (ctx, state) {},
       builder: (ctx, state) {
         var list = HomeAppCubit.get(context).sports;
-        return list.length > 0
-            ? ListView.separated(
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) =>
-                    buildArticleItem(list[index], ctx),
-                separatorBuilder: (context, index) => myDivider(),
-                itemCount: list.length,
-              )
-            : Container(
-                child: Center(
-                child: Text('empty'),
-              ));
+        return articleBuilder(list, context);
       },
     );
   }

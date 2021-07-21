@@ -7,6 +7,7 @@ import 'package:news_app/Logic/App/App%20State.dart';
 import 'package:news_app/Logic/App/AppCubit.dart';
 import 'package:news_app/Logic/Home/HomeCubit.dart';
 import 'package:news_app/layouts/Screens/search/search.dart';
+import 'package:news_app/layouts/Screens/webView/webView.dart';
 import 'package:news_app/layouts/home.dart';
 
 Future<void> main() async {
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
+              primaryColor: Colors.deepOrange,
               scaffoldBackgroundColor: Colors.white,
               appBarTheme: AppBarTheme(
                 titleSpacing: 20.0,
@@ -78,6 +80,32 @@ class MyApp extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
+              inputDecorationTheme: InputDecorationTheme(
+                // filled: true,
+                // fillColor: Color(0xff707070),
+
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Colors.deepOrange),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Colors.deepOrange),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Colors.deepOrange),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Colors.deepOrange),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Colors.deepOrange),
+                ),
+              ),
+              primarySwatch: Colors.deepOrange,
             ),
             darkTheme: ThemeData(
               primarySwatch: Colors.deepOrange,
@@ -122,6 +150,7 @@ class MyApp extends StatelessWidget {
             home: Home(),
             routes: {
               SearchScreen.routName: (ctx) => SearchScreen(),
+              WebViewScreen.routName: (ctx) => WebViewScreen(),
             },
           );
         },

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/layouts/Screens/webView/webView.dart';
 
 Widget defaultFormField({
   @required TextEditingController controller,
@@ -43,7 +44,8 @@ Widget defaultFormField({
 
 Widget buildArticleItem(article, context) => InkWell(
       onTap: () {
-        //  navigateTo(context, WebViewScreen(article['url']),);
+        Navigator.of(context)
+            .pushNamed(WebViewScreen.routName, arguments: article['url']);
       },
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -97,7 +99,7 @@ Widget buildArticleItem(article, context) => InkWell(
         ),
       ),
     );
-Widget articleBuilder(list, context) {
+Widget articleBuilder(list, context, {isSearch = false}) {
   print('length of list ' + list.length.toString());
   return list.length > 0
       ? ListView.separated(
@@ -107,10 +109,12 @@ Widget articleBuilder(list, context) {
           separatorBuilder: (context, index) => myDivider(),
           itemCount: list.length - 1,
         )
-      : Container(
-          child: Center(
-          child: Text('empty'),
-        ));
+      : isSearch
+          ? Container()
+          : Container(
+              child: Center(
+              child: CircularProgressIndicator(),
+            ));
 }
 
 Widget myDivider() => Padding(
