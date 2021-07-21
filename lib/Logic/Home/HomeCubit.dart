@@ -36,10 +36,10 @@ class HomeAppCubit extends Cubit<HomeAppState> {
       business = value.data['articles'];
       print(business[0]['title']);
 
-      emit(NewsGetBusinessSuccessState());
+      emit(NewsGetSuccessState());
     }).catchError((error) {
       print(error.toString());
-      emit(NewsGetBusinessErrorState(error.toString()));
+      emit(NewsGetErrorState(error.toString()));
     });
   }
 
@@ -59,10 +59,10 @@ class HomeAppCubit extends Cubit<HomeAppState> {
       sports = value.data['articles'];
       print(sports[0]['title']);
 
-      emit(NewsGetBusinessSuccessState());
+      emit(NewsGetSuccessState());
     }).catchError((error) {
       print(error.toString());
-      emit(NewsGetBusinessErrorState(error.toString()));
+      emit(NewsGetErrorState(error.toString()));
     });
   }
 
@@ -82,10 +82,33 @@ class HomeAppCubit extends Cubit<HomeAppState> {
       science = value.data['articles'];
       print(science[0]['title']);
 
-      emit(NewsGetBusinessSuccessState());
+      emit(NewsGetSuccessState());
     }).catchError((error) {
       print(error.toString());
-      emit(NewsGetBusinessErrorState(error.toString()));
+      emit(NewsGetErrorState(error.toString()));
+    });
+  }
+
+  List<dynamic> search = [];
+  void getSearch(String value) {
+    print(value);
+    emit(NewsGetLoadingState());
+    DioHelper.getData(
+      url: 'v2/everything',
+      query: {
+        'q': '$value',
+        'apiKey': '82f654e889b44c728c75b6694881c43d',
+      },
+    ).then((value) {
+      print('hi3 ' + value.toString());
+      print(value.data['articles'][0]['title']);
+      search = value.data['articles'];
+      print(science[0]['title']);
+
+      emit(NewsGetSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(NewsGetErrorState(error.toString()));
     });
   }
 }

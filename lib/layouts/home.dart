@@ -4,16 +4,12 @@ import 'package:news_app/Data/local/cachHelper.dart';
 import 'package:news_app/Logic/App/AppCubit.dart';
 import 'package:news_app/Logic/Home/HomeCubit.dart';
 import 'package:news_app/Logic/Home/HomeState.dart';
+import 'package:news_app/layouts/Screens/search/search.dart';
 
 class Home extends StatelessWidget {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeAppCubit()
-        ..getBusiness()
-        ..getScience()
-        ..getSports(),
-      child: BlocConsumer<HomeAppCubit, HomeAppState>(
+    return  BlocConsumer<HomeAppCubit, HomeAppState>(
         listener: (context, state) {
           // TODO: implement listener
         },
@@ -24,7 +20,11 @@ class Home extends StatelessWidget {
               appBar: AppBar(
                 title: Text('News App'),
                 actions: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(SearchScreen.routName);
+                      },
+                      icon: Icon(Icons.search)),
                   IconButton(
                       onPressed: () {
                         AppCubit.get(context).changeAppMode();
@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
                 ],
               ));
         },
-      ),
+
     );
   }
 }

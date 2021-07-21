@@ -6,10 +6,10 @@ class ChngeAppBar extends HomeAppState {}
 
 class NewsGetLoadingState extends HomeAppState {}
 
-class NewsGetBusinessSuccessState extends HomeAppState {}
+class NewsGetSuccessState extends HomeAppState {}
 
-class NewsGetBusinessErrorState extends HomeAppState {
+class NewsGetErrorState extends HomeAppState {
   final error;
 
-  NewsGetBusinessErrorState(this.error);
+  NewsGetErrorState(this.error);
 }

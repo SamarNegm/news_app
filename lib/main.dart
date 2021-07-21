@@ -5,6 +5,8 @@ import 'package:news_app/Data/Remote/DioHelper.dart';
 import 'package:news_app/Data/local/cachHelper.dart';
 import 'package:news_app/Logic/App/App%20State.dart';
 import 'package:news_app/Logic/App/AppCubit.dart';
+import 'package:news_app/Logic/Home/HomeCubit.dart';
+import 'package:news_app/layouts/Screens/search/search.dart';
 import 'package:news_app/layouts/home.dart';
 
 Future<void> main() async {
@@ -19,8 +21,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AppCubit(),
+        ),
+        BlocProvider(
+          create: (context) => HomeAppCubit()
+            ..getBusiness()
+            ..getScience()
+            ..getSports(),
+        )
+      ],
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -28,86 +40,90 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           var cubit = AppCubit.get(context);
           return MaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                scaffoldBackgroundColor: Colors.white,
-                appBarTheme: AppBarTheme(
-                  titleSpacing: 20.0,
-                  backwardsCompatibility: false,
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                    statusBarColor: Colors.white,
-                    statusBarIconBrightness: Brightness.dark,
-                  ),
-                  backgroundColor: Colors.white,
-                  elevation: 0.0,
-                  titleTextStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  iconTheme: IconThemeData(
-                    color: Colors.black,
-                  ),
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              scaffoldBackgroundColor: Colors.white,
+              appBarTheme: AppBarTheme(
+                titleSpacing: 20.0,
+                backwardsCompatibility: false,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.white,
+                  statusBarIconBrightness: Brightness.dark,
                 ),
-                floatingActionButtonTheme: FloatingActionButtonThemeData(
-                  backgroundColor: Colors.deepOrange,
+                backgroundColor: Colors.white,
+                elevation: 0.0,
+                titleTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: Colors.deepOrange,
-                  unselectedItemColor: Colors.grey,
-                  elevation: 20.0,
-                  backgroundColor: Colors.white,
-                ),
-                textTheme: TextTheme(
-                  bodyText1: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
+                iconTheme: IconThemeData(
+                  color: Colors.black,
                 ),
               ),
-              darkTheme: ThemeData(
-                primarySwatch: Colors.deepOrange,
-                scaffoldBackgroundColor: Color(0xff333739),
-                appBarTheme: AppBarTheme(
-                  titleSpacing: 20.0,
-                  backwardsCompatibility: false,
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                    statusBarColor: Color(0xff333739),
-                    statusBarIconBrightness: Brightness.light,
-                  ),
-                  backgroundColor: Color(0xff333739),
-                  elevation: 0.0,
-                  titleTextStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  iconTheme: IconThemeData(
-                    color: Colors.white,
-                  ),
-                ),
-                floatingActionButtonTheme: FloatingActionButtonThemeData(
-                  backgroundColor: Colors.deepOrange,
-                ),
-                bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: Colors.deepOrange,
-                  unselectedItemColor: Colors.grey,
-                  elevation: 20.0,
-                  backgroundColor: Color(0xff333739),
-                ),
-                textTheme: TextTheme(
-                  bodyText1: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Colors.deepOrange,
+              ),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: Colors.deepOrange,
+                unselectedItemColor: Colors.grey,
+                elevation: 20.0,
+                backgroundColor: Colors.white,
+              ),
+              textTheme: TextTheme(
+                bodyText1: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
                 ),
               ),
-              themeMode: (cubit.isDark()) ? ThemeMode.dark : ThemeMode.light,
-              home: Home());
+            ),
+            darkTheme: ThemeData(
+              primarySwatch: Colors.deepOrange,
+              scaffoldBackgroundColor: Color(0xff333739),
+              appBarTheme: AppBarTheme(
+                titleSpacing: 20.0,
+                backwardsCompatibility: false,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Color(0xff333739),
+                  statusBarIconBrightness: Brightness.light,
+                ),
+                backgroundColor: Color(0xff333739),
+                elevation: 0.0,
+                titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                iconTheme: IconThemeData(
+                  color: Colors.white,
+                ),
+              ),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Colors.deepOrange,
+              ),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: Colors.deepOrange,
+                unselectedItemColor: Colors.grey,
+                elevation: 20.0,
+                backgroundColor: Color(0xff333739),
+              ),
+              textTheme: TextTheme(
+                bodyText1: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            themeMode: (cubit.isDark()) ? ThemeMode.dark : ThemeMode.light,
+            home: Home(),
+            routes: {
+              SearchScreen.routName: (ctx) => SearchScreen(),
+            },
+          );
         },
       ),
     );
